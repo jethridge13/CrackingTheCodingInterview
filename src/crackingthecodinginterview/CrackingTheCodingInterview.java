@@ -51,10 +51,45 @@ public class CrackingTheCodingInterview {
     }
     
     /**
+     * Problem 1.4
+     * @param s The string to be modified.
+     * @param l The length of the string before the padded space
+     * @return A string with all spaces replaced with '%20'
+     */
+    public static String webifySpaces(String s, int l){
+        if(s.indexOf(' ') == -1){
+            return s;
+        }
+        char[] c = s.toCharArray();
+        int spaceCount = 0;
+        for(int i = 0; i < l; i++){
+            if(c[i] == ' '){
+                spaceCount++;
+            }
+        }
+        int newLength = l + spaceCount * 2;
+        for(int i = l - 1; i > 0; i--){
+            if(c[i] == ' '){
+                c[newLength - 1] = '0';
+                c[newLength - 2] = '2';
+                c[newLength - 3] = '%';
+                newLength -= 3;
+            } else {
+                c[newLength - 1] = c[i];
+                newLength--;
+            }
+        }
+        String result = new String(c);
+        return result;
+    }
+    
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        String a = "Mr John Smith      ";
+        int b = 13;
+        System.out.println(webifySpaces(a, b));
     }
     
 }
